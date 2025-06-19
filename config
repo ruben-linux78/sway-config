@@ -25,7 +25,7 @@ set $right l
 # Your preferred terminal emulator.
 set $term kitty
 # Your preferred application launcher
-# set $menu rofi
+# set $menu fuzzel
 ###Clear ###
 set $clear #ffffff00
 #####################
@@ -88,14 +88,14 @@ exec_always {
   gsettings set org.gnome.desktop.interface cursor-size 24
   gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
 }
-######################
-### Keyboard layout###
-######################
+#######################
+### Keyboard layout ###
+#######################
 input type:keyboard {
     xkb_layout "es"
     xkb_variant ""
     xkb_options "grp:win_space_toggle"
-	xkb_model "pc105"
+    xkb_model "pc105"
 }
 input * xkb_numlock enable
 ############################
@@ -133,12 +133,13 @@ output * bg ~/Wallpaper/wallpaper.png fill
     bindsym $mod+p exec rofi -show drun
     bindsym $mod+n exec thunar
     bindsym $mod+d exec wofi --show drun --allow-images --run gtk-update-icon-cache
+    bindsym $mod+Shift+d exec nwggrid -mb 10 -mr 10 -ml 10 -mt 10
     bindsym $mod+o exec gmrun
     bindsym $mod+t exec swaylock
     bindsym $mod+x exec rofi -show power-menu -modi power-menu:rofi-power-menu
     bindsym $mod+Shift+c reload
     floating_modifier $mod normal
-     # Exit sway (logs you out of your Wayland session)
+    # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 # Moving around:
     # Move your focus around
@@ -224,9 +225,9 @@ output * bg ~/Wallpaper/wallpaper.png fill
     bindsym Escape mode "default"
 }
     bindsym $mod+r mode "resize"
-###############
-# Utilities ###
-###############
+#################
+### Utilities ###
+#################
 # Special keys to adjust volume via PulseAudio
     bindsym --locked XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
     bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
