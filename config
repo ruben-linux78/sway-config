@@ -34,6 +34,10 @@ set $clear #ffffff00
 # Gaps
 gaps inner 5
 gaps outer 5
+focus_follows_mouse yes
+default_border pixel 2
+default_floating_border pixel 3
+set $opacity 0.5
 # Bordes negro oscuro y negro claro.
 # class                    border  backgroung  text  indicator child_border
 #client.focused            #000000  #000000  #dddddd  #999999   #666666
@@ -65,10 +69,10 @@ client.background          #ffffff
 #client.focused            #0a0b16 #2f343f #4477ff #b68083   #b68083
 #client.focused_inactive   #2f343f #2f343f #d8dee8 #303030   #303030
 #client.unfocused          #333333 #222222 #888888 #292d2e   $clear
-###############
-###Automount###
-###############
-exec wlsunset -l 42.34106 -L -3.70184 &           # (for Burgos, Spain) 
+#################
+### Automount ###
+#################
+exec wlsunset -l 42.34106 -L -3.70184 &         #(for Burgos, Spain) 
 exec udiskie -at &
 exec waybar &
 exec swaync &
@@ -82,6 +86,7 @@ exec brightnessctl set 100% &
 exec --no-startup-id pipewire &
 exec --no-startup-id pipewire-pulse &
 exec_always {
+  gsettings set $gnome-schema font-name "JetBrainsMonoNL Ned Font Mono 11"
   gsettings set org.gnome.desktop.interface gtk-theme "ArchLabs-Dark"
   gsettings set org.gnome.desktop.interface icon-theme "Papirus-Dark"
   gsettings set org.gnome.desktop.interface cursor-theme "Breeze Hacked"
@@ -97,6 +102,17 @@ input type:keyboard {
     xkb_options "grp:win_space_toggle"
     xkb_model "pc105"
 }
+input "type:touchpad" {
+    tap enabled
+    natural_scroll disabled
+    accel_profile adaptive
+    click_method clickfinger
+    drag enabled
+    drag_lock enabled
+    dwt enabled
+    middle_emulation enabled
+    pointer_accel 1.0
+}
 input * xkb_numlock enable
 ############################
 ### Output configuration ###
@@ -108,18 +124,18 @@ output * bg ~/Wallpaper/wallpaper.png fill
 ################
 ### Swayidle ###
 ################
- exec swayidle -w \
-          timeout 600 'swaylock -f -c 000000' \
-          timeout 900 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-          before-sleep 'swaylock -f -c 000000'
+exec swayidle -w \
+    timeout 600 'swaylock -f -c 000000' \
+    timeout 900 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+    before-sleep 'swaylock -f -c 000000'
 ###########################
 ### Input configuration ###
 ###########################
-   input "2:7:SynPS/2_Synaptics_TouchPad" {
-       dwt enabled
-       tap enabled
-       natural_scroll enabled
-       middle_emulation enabled
+input "2:7:SynPS/2_Synaptics_TouchPad" {
+    dwt enabled
+    tap enabled
+    natural_scroll enabled
+    middle_emulation enabled
 }
 ####################
 ### Key binding s###
@@ -248,5 +264,36 @@ output * bg ~/Wallpaper/wallpaper.png fill
     bindsym $mod+Alt+A exec grim -t jpeg -g "$(slurp)" ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%m-%s).jpg
     # Take a screenshot and save it to the clipboard
     # bindsym $mod+Shift+A exec grim -g "$(slurp -d)" - | wl-copy
+####################
+### window rules ###
+####################
+# assign [app_id="firefox*"] 1
+# assign [app_id="org.telegram*"] 4
+# assign [app_id="vlc*"] 3
+# assign [app_id="thunar*"] 2
+# assign [app_id="kate*"] 5
+for_window [app_id="firefox*"] floating enable
+for_window [app_id="org.telegram*"] floating enable
+for_window [app_id="vlc*"] floating enable
+for_window [app_id="thunar*"] floating enable
+for_window [app_id="scratch"] move scratchpad, scratchpad show
+for_window [app_id="scratch"] floating enable
+for_window [app_id="scratch"] resize set width 1885 height 510
+for_window [app_id="scratch"] move position 10 540
+for_window [app_id="octoxbps*"] floating enable
+for_window [app_id="octoxbps*"] move scratchpad, scratchpad show
+for_window [app_id="octoxbps*"] resize set width 930 height 510
+for_window [app_id="octoxbps*"] move position 965 10
+for_window [app_id="transmission"] move scratchpad, scratchpad show
+for_window [app_id="transmission"] floating enable
+for_window [app_id="transmission"] resize set width 930 height 510
+for_window [app_id="transmission"] move position 10 10
+for_window [app_id="pulse"] move scratchpad, scratchpad show
+for_window [app_id="pulse"] floating enable
+for_window [app_id="Telegram"] resize set width 800 height 600
+for_window [app_id="Telegram"] move position center
+for_window [app_id="pulse"] floating enable
+for_window [app_id="pulse"] resize set width 900 200
+for_window [app_id="pulse"] move position 510 860
 # include:
     include /etc/sway/config.d/*
