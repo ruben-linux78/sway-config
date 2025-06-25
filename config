@@ -9,9 +9,11 @@
 #                          |___/ \_/\_/ \__,_|\__| |                        #
 #                                             |___/                         #
 #############################################################################
+
 #################
 ### Variables ###
 #################
+
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
 set $scale 1.0
@@ -26,12 +28,14 @@ set $right l
 set $term kitty
 # Your preferred application launcher
 # set $menu fuzzel
-###Clear ###
+### Clear ###
 set $clear #ffffff00
+
 #####################
 ### Look and Feel ###
 #####################
-# Gaps
+
+### Gaps ###
 gaps inner 5
 gaps outer 5
 focus_follows_mouse yes
@@ -52,26 +56,28 @@ set $opacity 0.5
 default_border pixel $border_size
 default_floating_border pixel $border_size_floating
 hide_edge_borders smart
-#client.focused            #ffffff00 #ffffff00  #ffffff00 #ffffff00   $clear
-#client.unfocused          #ffffff00 #ffffff00  #ffffff00 #ffffff00   $clear
-#client.focused_inactive   #ffffff00 #ffffff00  #ffffff00 #ffffff00   $clear
-# Eslilo actual.           border  backgr. text  indicator child_border
-client.focused             #a0a0a0 #285577 #ffffff #a0a0a0   #a0a0a0
-client.focused_inactive    #2b2b2b #5f676a #ffffff #2b2b2b   #2b2b2b
-client.unfocused           #333333 #222222 #888888 #333333   #262626
-client.urgent              #2f343a #900000 #ffffff #900000   #900000
-client.placeholder         #000000 #0c0c0c #ffffff #000000   #0c0c0c
+#client.focused            #ffffff00  #ffffff00  #ffffff00  #ffffff00  $clear
+#client.unfocused          #ffffff00  #ffffff00  #ffffff00  #ffffff00  $clear
+#client.focused_inactive   #ffffff00  #ffffff00  #ffffff00  #ffffff00  $clear
+# Eslilo actual.           border   backgr.  text   indicator child_border
+client.focused             #a0a0a0  #285577  #ffffff  #a0a0a0  #a0a0a0
+client.focused_inactive    #2b2b2b  #5f676a  #ffffff  #2b2b2b  #2b2b2b
+client.unfocused           #333333  #222222  #888888  #333333  #262626
+client.urgent              #2f343a  #900000  #ffffff  #900000  #900000
+client.placeholder         #000000  #0c0c0c  #ffffff  #000000  #0c0c0c
 client.background          #ffffff
 # Tema Debian PC atico.
 #default_border pixel $border_size
 # default_floating_border pixel $border_size_floating
 #hide_edge_borders smart
-#client.focused            #0a0b16 #2f343f #4477ff #b68083   #b68083
-#client.focused_inactive   #2f343f #2f343f #d8dee8 #303030   #303030
-#client.unfocused          #333333 #222222 #888888 #292d2e   $clear
+#client.focused            #0a0b16  #2f343f  #4477ff  #b68083  #b68083
+#client.focused_inactive   #2f343f  #2f343f  #d8dee8  #303030  #303030
+#client.unfocused          #333333  #222222  #888888  #292d2e  $clear
+
 #################
 ### Automount ###
 #################
+
 exec wlsunset -l 42.34106 -L -3.70184 &         #(for Burgos, Spain) 
 exec udiskie -at &
 exec waybar &
@@ -93,9 +99,11 @@ exec_always {
   gsettings set org.gnome.desktop.interface cursor-size 24
   gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
 }
+
 #######################
 ### Keyboard layout ###
 #######################
+
 input type:keyboard {
     xkb_layout "es"
     xkb_variant ""
@@ -114,32 +122,40 @@ input "type:touchpad" {
     pointer_accel 1.0
 }
 input * xkb_numlock enable
+
 ############################
 ### Output configuration ###
 ############################
+
 # Start output wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 output * bg ~/Wallpaper/wallpaper.png fill
 # Example configuration:
 # output HDMI-A-1 resolution 1920x1080 position 1920,0
+
 ################
 ### Swayidle ###
 ################
+
 exec swayidle -w \
     timeout 600 'swaylock -f -c 000000' \
     timeout 900 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
     before-sleep 'swaylock -f -c 000000'
+
 ###########################
 ### Input configuration ###
 ###########################
+
 input "2:7:SynPS/2_Synaptics_TouchPad" {
     dwt enabled
     tap enabled
     natural_scroll enabled
     middle_emulation enabled
 }
+
 ####################
-### Key binding s###
+### Key bindings ###
 ####################
+
 # Basics:
     bindsym $mod+Return exec $term
     bindsym $mod+Shift+w exec firefox
@@ -241,9 +257,11 @@ input "2:7:SynPS/2_Synaptics_TouchPad" {
     bindsym Escape mode "default"
 }
     bindsym $mod+r mode "resize"
+
 #################
 ### Utilities ###
 #################
+
 # Special keys to adjust volume via PulseAudio
     bindsym --locked XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
     bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
@@ -264,18 +282,28 @@ input "2:7:SynPS/2_Synaptics_TouchPad" {
     bindsym $mod+Alt+A exec grim -t jpeg -g "$(slurp)" ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%m-%s).jpg
     # Take a screenshot and save it to the clipboard
     # bindsym $mod+Shift+A exec grim -g "$(slurp -d)" - | wl-copy
+
 ####################
 ### window rules ###
 ####################
-# assign [app_id="firefox*"] 1
-# assign [app_id="org.telegram*"] 4
-# assign [app_id="vlc*"] 3
-# assign [app_id="thunar*"] 2
-# assign [app_id="kate*"] 5
+
+# assign [app_id="kitty*"] workspace 1
+# assign [app_id="firefox*"] workspace 2
+# assign [app_id="thunar*"] workspace 3
+# assign [app_id="thunderbird*"] workspace 4
+# assign [class="Thunderbird"] workspace 4
+# assign [app_id="libreoffice*"] workspace 5
+# assign [class="libreoffice"] workspace 5
+# assign [app_id="vlc*"] 6
+# assign [app_id="org.telegram*"] 7
+# Default window rules
 for_window [app_id="firefox*"] floating enable
 for_window [app_id="org.telegram*"] floating enable
 for_window [app_id="vlc*"] floating enable
 for_window [app_id="thunar*"] floating enable
+for_window [app_id = "qt5ct"] floating enable
+for_window [app_id = "qt6ct"] floating enable
+for_window [app_id="nwg-look"] floating enable
 for_window [title="htop"] floating enable
 for_window [title="Open File"] floating enable, resize set width 50 ppt height 60 ppt
 for_window [title="Open Files"] floating enable, resize set width 50 ppt height 60 ppt
@@ -311,15 +339,19 @@ for_window [app_id="pulse"] move position 510 860
 # set floating for window roles
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="bubble"] floating enable
-for_window [window_role="task_dialog"] floating enable
-for_window [window_role="Preferences"] floating enable
+for_window [window_role="dialog"] floating enable
 for_window [window_type="dialog"] floating enable
-for_window [window_type="menu"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [window_type = "menu"] floating enable
+for_window [window_role = "GtkFileChooserDialog"] resize set 600 400
+for_window [window_role = "GtkFiileChooserDialog"] move position center
+for_window [window_role="Preferences"] floating enable
 for_window [window_role="About"] floating enable
 for_window [app_id="firefox" title="^Library$"] floating enable, border pixel 1, sticky enable, resize set width 40 ppt height 30 ppt
 for_window [app_id="floating_shell_portrait"] floating enable, border pixel 1, sticky enable, resize set width 30 ppt height 40 ppt
 for_window [title="Picture in picture"] floating enable, sticky enable
 for_window [app_id="xsensors"] floating enable
 for_window [app_id="firefox" title="Firefox — Sharing Indicator"] kill
+
 # include:
     include /etc/sway/config.d/*
