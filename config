@@ -10,6 +10,12 @@
 #                                             |___/                         #
 #############################################################################
 
+###########################
+### Import Color Scheme ###
+###########################
+
+include catppuccin-mocha
+
 #################
 ### Variables ###
 #################
@@ -91,6 +97,7 @@ exec blueman-tray &
 exec brightnessctl set 100% &
 exec --no-startup-id pipewire &
 exec --no-startup-id pipewire-pulse &
+exec --no-startup-id autotiling
 exec_always {
   gsettings set $gnome-schema font-name "JetBrainsMonoNL Ned Font Mono 11"
   gsettings set org.gnome.desktop.interface gtk-theme "ArchLabs-Dark"
